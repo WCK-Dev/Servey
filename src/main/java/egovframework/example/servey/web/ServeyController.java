@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import egovframework.example.servey.service.AnswerVO;
+import egovframework.example.servey.service.LogVO;
 import egovframework.example.servey.service.QuestionVO;
 import egovframework.example.servey.service.ServeyService;
 import egovframework.example.servey.service.ServeyVO;
@@ -75,9 +76,17 @@ public class ServeyController {
 		UserVO user = (UserVO)request.getSession().getAttribute("user");
 		answerVO.setU_id(user.getU_id());
 		
-		System.err.println(serveyService.insertAnswer(answerVO));
-
-		return "";
+		return serveyService.insertAnswer(answerVO) + "";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="insertLog.do")
+	public String insertLog(LogVO logVO, HttpServletRequest request) {
+		
+		UserVO user = (UserVO)request.getSession().getAttribute("user");
+		logVO.setU_id(user.getU_id());
+		
+		return serveyService.insertLog(logVO) + "";
 	}
 	
 }

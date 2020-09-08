@@ -9,5 +9,6 @@
 		<typeAlias alias="questionVO" type="egovframework.example.servey.service.QuestionVO"/>
 		<typeAlias alias="choiceVO" type="egovframework.example.servey.service.ChoiceVO"/>
 		<typeAlias alias="answerVO" type="egovframework.example.servey.service.AnswerVO"/>
+		<typeAlias alias="logVO" type="egovframework.example.servey.service.LogVO"/>
     </typeAliases>
 </configuration>

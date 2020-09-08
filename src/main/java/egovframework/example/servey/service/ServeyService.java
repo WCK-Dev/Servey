@@ -15,4 +15,6 @@ public interface ServeyService {
 	List<?> selectChoiceList();
 	
 	int insertAnswer(AnswerVO vo);
+	
+	int insertLog(LogVO vo);
 }

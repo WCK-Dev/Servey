@@ -40,7 +40,7 @@ CREATE TABLE `answer` (
 
 LOCK TABLES `answer` WRITE;
 /*!40000 ALTER TABLE `answer` DISABLE KEYS */;
-INSERT INTO `answer` VALUES ('6','wck','6',1),('4','wck','4',1),('2','wck','1',1),('5','wck','4',1),('3','wck','2',1),('7','wck','2',1),('9','wck','3',1),('10','wck','1',1),('12','wck','5',1),('1','wck','3',1),('8','wck','5',1),('11','wck','5',1),('13','wck','2',1),('16-2','wck','2,4',1),('14','wck','1',1),('15','wck','3',1),('16-3','wck','3,5',1),('16-1','wck','3,8',1),('16','wck','',1),('17','wck','퓨전소프트\n\n가나다라',1),('19','wck','의견작성',1),('18','wck','5',1);
+INSERT INTO `answer` VALUES ('1','wck','3',1),('2','wck','3',1),('3','wck','6',1),('4','wck','3',1),('5','wck','2',1),('6','wck','6',1),('7','wck','3',1),('8','wck','5',1),('9','wck','1',1),('10','wck','3',1),('11','wck','6',1),('12','wck','3',1),('13','wck','2',1),('14','wck','2',1),('15','wck','4',1),('16','wck','',1),('16-1','wck','8,10',1),('16-2','wck','4,7',1),('16-3','wck','4,6',1),('17','wck','asdawsdqwe12qqqwe1\n&apos;sadsacsac124321',1),('18','wck','5',1),('19','wck','asdsadasd1231',1);
 /*!40000 ALTER TABLE `answer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,6 +92,7 @@ CREATE TABLE `log` (
 
 LOCK TABLES `log` WRITE;
 /*!40000 ALTER TABLE `log` DISABLE KEYS */;
+INSERT INTO `log` VALUES ('wck','2020-09-08 10:20:38',1);
 /*!40000 ALTER TABLE `log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,4 +185,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-08 18:32:47
+-- Dump completed on 2020-09-08 19:28:44

@@ -38,6 +38,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/serveyMain.do" />
+			<mvc:mapping path="/serveyList.do" />
 			<ref bean="loginAuthInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>

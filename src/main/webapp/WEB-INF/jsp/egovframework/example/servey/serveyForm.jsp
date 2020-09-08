@@ -63,15 +63,31 @@
 						},
 				
 				success : function (result) {
-					sum += result;
+					sum++;
+					if(sum == totalCnt){
+						insertLog();
+						alert("설문이 제출되었습니다.\r\n참여해주셔서 감사합니다.");
+					}
 				}
 			}); // ajax End
 		}); // each End
+	}
+	
+	function insertLog(){
+		var s_seq = $("input[name=s_seq]").val();
 		
-		if(sum == totalCnt) {
-			alert("설문이 제출되었습니다.\r\n 참여해주셔서 감사합니다.");
-		}
-		
+		$.ajax({
+			type : 'POST',
+			url : "insertLog.do",
+			dataType : "text",
+			data : {"s_seq": s_seq},
+			
+			success : function (result) {
+				if(result == 1) {
+					alert("설문 제출 기록이 갱신되었습니다.");
+				}
+			}
+		});
 	}
 </script>
 <body>

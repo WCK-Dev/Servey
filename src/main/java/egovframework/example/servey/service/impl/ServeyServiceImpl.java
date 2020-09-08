@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import egovframework.example.servey.service.AnswerVO;
+import egovframework.example.servey.service.LogVO;
 import egovframework.example.servey.service.QuestionVO;
 import egovframework.example.servey.service.ServeyService;
 import egovframework.example.servey.service.ServeyVO;
@@ -73,6 +74,9 @@ public class ServeyServiceImpl extends EgovAbstractServiceImpl implements Servey
 		return serveyDAO.insertAnswer(vo);
 	}
 
-	
-	
+	@Override
+	public int insertLog(LogVO vo) {
+		return serveyDAO.insertLog(vo);
+	}
+
 }

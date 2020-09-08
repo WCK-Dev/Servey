@@ -47,4 +47,13 @@
 						)
 	</insert>
 	
+	<insert id="insertLog" parameterType="logVO">
+		INSERT INTO log(u_id
+					   ,s_seq
+						)
+				VALUES(#{u_id}
+					  ,#{s_seq}
+					  )
+	</insert>
+	
 </mapper>

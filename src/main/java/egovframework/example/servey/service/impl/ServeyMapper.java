@@ -18,6 +18,7 @@ package egovframework.example.servey.service.impl;
 import java.util.List;
 
 import egovframework.example.servey.service.AnswerVO;
+import egovframework.example.servey.service.LogVO;
 import egovframework.example.servey.service.QuestionVO;
 import egovframework.example.servey.service.ServeyVO;
 import egovframework.example.servey.service.UserVO;
@@ -37,4 +38,6 @@ public interface ServeyMapper {
 	List<?> selectChoiceList();
 	
 	int insertAnswer(AnswerVO vo);
+	
+	int insertLog(LogVO vo);
 }
