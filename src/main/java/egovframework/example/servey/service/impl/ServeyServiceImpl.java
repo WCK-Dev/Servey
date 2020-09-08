@@ -79,4 +79,9 @@ public class ServeyServiceImpl extends EgovAbstractServiceImpl implements Servey
 		return serveyDAO.insertLog(vo);
 	}
 
+	@Override
+	public int checkLog(LogVO vo) {
+		return serveyDAO.checkLog(vo);
+	}
+
 }

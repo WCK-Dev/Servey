@@ -56,4 +56,10 @@
 					  )
 	</insert>
 	
+	<select id="checkLog" parameterType="logVo" resultType="int">
+		SELECT COUNT(*)
+		FROM log
+		WHERE u_id = #{u_id} AND s_seq = #{s_seq}
+	</select>
+	
 </mapper>

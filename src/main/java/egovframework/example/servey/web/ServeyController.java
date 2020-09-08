@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import egovframework.example.servey.service.AnswerVO;
 import egovframework.example.servey.service.LogVO;
@@ -53,20 +54,52 @@ public class ServeyController {
 	}
 
 	@RequestMapping(value="serveyMain.do")
-	public String serveyMain(ServeyVO serveyVO, ModelMap model) {
+	public String serveyMain(ServeyVO serveyVO, ModelMap model, RedirectAttributes ra, HttpServletRequest request) {
 		
-		model.addAttribute("servey", serveyService.selectServey(serveyVO));
+		/*이미 설문에 참여한 유저인지 로그를 확인*/
+		LogVO logVO = new LogVO();
+		logVO.setS_seq(serveyVO.getS_seq());
+		String u_id = ((UserVO)request.getSession().getAttribute("user")).getU_id();
+		logVO.setU_id(u_id);
 		
-		return "servey/serveyMain";
+		int check = serveyService.checkLog(logVO);
+		
+		if(check == 1) { // 이미 설문작성 기록이 있을때
+			
+			ra.addFlashAttribute("Duplicate", "true");
+			
+			return "redirect:/serveyList.do";
+		} else { // 없을경우 정상수행
+			
+			model.addAttribute("servey", serveyService.selectServey(serveyVO));
+			
+			return "servey/serveyMain";
+		}
 	}
 	
 	@RequestMapping(value="serveyForm.do")
-	public String serveyForm(QuestionVO questionVO, ModelMap model) {
+	public String serveyForm(QuestionVO questionVO, ModelMap model, RedirectAttributes ra, HttpServletRequest request) {
 		
-		model.addAttribute("questionList", serveyService.selectQuestionList(questionVO));
-		model.addAttribute("choiceList", serveyService.selectChoiceList());
+		/*이미 설문에 참여한 유저인지 로그를 확인*/
+		LogVO logVO = new LogVO();
+		logVO.setS_seq(questionVO.getS_seq());
+		String u_id = ((UserVO)request.getSession().getAttribute("user")).getU_id();
+		logVO.setU_id(u_id);
 		
-		return "servey/serveyForm";
+		int check = serveyService.checkLog(logVO);
+		
+		if(check == 1) { // 이미 설문작성 기록이 있을때
+			
+			ra.addFlashAttribute("Duplicate", "true");
+			
+			return "redirect:/serveyList.do";
+		} else { // 없을경우 정상수행
+			
+			model.addAttribute("questionList", serveyService.selectQuestionList(questionVO));
+			model.addAttribute("choiceList", serveyService.selectChoiceList());
+			
+			return "servey/serveyForm";
+		}
 	}
 	
 	@ResponseBody

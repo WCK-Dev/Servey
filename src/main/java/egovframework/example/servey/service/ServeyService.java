@@ -17,4 +17,6 @@ public interface ServeyService {
 	int insertAnswer(AnswerVO vo);
 	
 	int insertLog(LogVO vo);
+	
+	int checkLog(LogVO vo);
 }

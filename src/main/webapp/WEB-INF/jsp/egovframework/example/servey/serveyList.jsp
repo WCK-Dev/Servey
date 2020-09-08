@@ -17,6 +17,14 @@
 	
 	p { font-size: 1em}
 </style>
+
+<script>
+$(document).ready(function(){
+	if('${Duplicate}' == 'true'){
+		alert("죄송합니다.\r\n회원님은 이미 해당 설문에 참여하셨습니다.");
+	}
+});
+</script>
 <body>
 <div class="userBox" style="width: 80%; padding-top:20px; text-align: right;">
 	${sessionScope.user.u_name }(${sessionScope.user.u_id })님 환영합니다.
@@ -40,6 +48,5 @@
 		</div>
 	</c:forEach>
 </div>
-<%@include file="../cmmn/common_bot.jsp"%>
 </body>
 </html>

@@ -137,5 +137,4 @@
 		</c:if>
 </c:forEach>
 </body>
-<%@include file="../cmmn/common_bot.jsp"%>
 </html>

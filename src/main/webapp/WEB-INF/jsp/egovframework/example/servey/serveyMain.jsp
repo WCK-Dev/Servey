@@ -59,7 +59,5 @@
  	<p>- 1인 1회에 한하여 참여가능 합니다.</p>
 <button class="btn btn-primary btn-block" onclick="serveyStrat(${servey.s_seq}, '${sessionScope.user.u_id }')">설문 시작</button>
 </div>
-
-<%@include file="../cmmn/common_bot.jsp"%>
 </body>
 </html>

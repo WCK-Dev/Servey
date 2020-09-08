@@ -40,4 +40,6 @@ public interface ServeyMapper {
 	int insertAnswer(AnswerVO vo);
 	
 	int insertLog(LogVO vo);
+	
+	int checkLog(LogVO vo);
 }

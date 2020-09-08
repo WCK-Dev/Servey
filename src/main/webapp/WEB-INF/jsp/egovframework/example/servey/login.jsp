@@ -30,7 +30,5 @@
 	    <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
 	</form>
 </div>
-
-<%@include file="../cmmn/common_bot.jsp"%>
 </body>
 </html>
