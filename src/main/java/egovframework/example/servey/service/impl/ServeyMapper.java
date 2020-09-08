@@ -15,10 +15,26 @@
  */
 package egovframework.example.servey.service.impl;
 
+import java.util.List;
+
+import egovframework.example.servey.service.AnswerVO;
+import egovframework.example.servey.service.QuestionVO;
+import egovframework.example.servey.service.ServeyVO;
+import egovframework.example.servey.service.UserVO;
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 
 @Mapper("serveyMapper")
 public interface ServeyMapper {
 	
+	UserVO login(UserVO vo);
 	
+	List<?> selectServeyList();
+	
+	ServeyVO selectServey(ServeyVO vo);
+	
+	List<?> selectQuestionList(QuestionVO vo);
+
+	List<?> selectChoiceList();
+	
+	int insertAnswer(AnswerVO vo);
 }

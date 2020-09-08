@@ -35,12 +35,12 @@
     <!-- 로그인 체크 인터셉터 설정 -->
     <bean id="loginAuthInterceptor" class="egovframework.example.cmmn.web.AuthInterceptor" />
     
-   <!--  <mvc:interceptors>
+	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/serveyMain.do" />
 			<ref bean="loginAuthInterceptor"/>
 		</mvc:interceptor>
-	</mvc:interceptors> -->
+	</mvc:interceptors>
 	<!-- 인터셉터 설정 종료-->
 
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">

@@ -2,5 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.example.servey.service.impl.ServeyMapper">
 
+	<select id="login" resultType="userVO">
+	
+		SELECT u_id, u_name
+		FROM user
+		WHERE u_id = #{u_id }
+			AND u_pwd = #{u_pwd }
+	
+	</select>
+	
+	<select id="selectServeyList" resultType="egovMap">
+		SELECT * 
+		FROM servey
+		ORDER BY s_seq;
+	</select>
+
+	<select id="selectServey" resultType="serveyVO">
+		SELECT * 
+		FROM servey
+		WHERE s_seq = #{s_seq }
+	</select>
+	
+	<select id="selectQuestionList" resultType="questionVO">
+		SELECT *
+		FROM question
+		WHERE s_seq = #{s_seq }
+	</select>
+	
+	<select id="selectChoiceList" resultType="choiceVO">
+		SELECT *
+		FROM choice
+		ORDER BY c_type ASC, c_value ASC
+	</select>
+	
+	<insert id="insertAnswer" parameterType="answerVO">
+		INSERT INTO answer(q_no
+						  ,u_id
+						  ,a_answer
+						  ,s_seq)
+					VALUES(#{q_no}
+						  ,#{u_id}
+					      ,#{a_answer}
+					      ,#{s_seq}
+						)
+	</insert>
 	
 </mapper>

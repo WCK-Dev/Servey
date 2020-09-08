@@ -15,13 +15,19 @@
  */
 package egovframework.example.servey.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import egovframework.example.servey.service.AnswerVO;
+import egovframework.example.servey.service.QuestionVO;
 import egovframework.example.servey.service.ServeyService;
+import egovframework.example.servey.service.ServeyVO;
+import egovframework.example.servey.service.UserVO;
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import egovframework.rte.fdl.idgnr.EgovIdGnrService;
 
@@ -36,6 +42,36 @@ public class ServeyServiceImpl extends EgovAbstractServiceImpl implements Servey
 
 	@Resource(name = "egovIdGnrService")
 	private EgovIdGnrService egovIdGnrService;
+
+	@Override
+	public UserVO login(UserVO vo) {
+		return serveyDAO.login(vo);
+	}
+
+	@Override
+	public List<?> selectServeyList() {
+		return serveyDAO.selectServeyList();
+	}
+
+	@Override
+	public ServeyVO selectServey(ServeyVO vo) {
+		return serveyDAO.selectServey(vo);
+	}
+
+	@Override
+	public List<?> selectQuestionList(QuestionVO vo) {
+		return serveyDAO.selectQuestionList(vo);
+	}
+
+	@Override
+	public List<?> selectChoiceList() {
+		return serveyDAO.selectChoiceList();
+	}
+
+	@Override
+	public int insertAnswer(AnswerVO vo) {
+		return serveyDAO.insertAnswer(vo);
+	}
 
 	
 	
