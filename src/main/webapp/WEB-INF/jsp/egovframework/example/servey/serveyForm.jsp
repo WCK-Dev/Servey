@@ -19,14 +19,32 @@
 </style>
 
 <script>
-	var qListSize;
-	var 
+	var qListSize = 0;
+	var progress = 0;
+	var percent = 0.0;
 	
 	$(document).ready(function(){
 		qListSize= $('input[name="qListSize"]').val() - 1; //전체 문항수
 		console.log(qListSize);
 		
 		$("[class^=question]").each(function(index, item){
+			/* progress 초기값 세팅(화면로딩시에 몇 %인지 == 수정일때는 0%에서 시작하면 안됨) */
+			var c_type = $(item).find('input[name="c_type"]').val();
+			
+			/* 작성된 객관식(체크) 답변의 수를 누적 */
+			if(c_type != -1 && c_type != 0){ 
+				var chkedLength = $(item).find('input[type="checkbox"]:checked').length
+				if(chkedLength != 0){
+					progress++;
+				}
+			/* 작성된 주관식 답변의 수를 누적 */
+			} else if (c_type == 0) { 
+				var textVal = $(item).children('textarea').val();
+				if(textVal.trim() != '' && textVal.trim() != null){
+					progress++;
+				}
+			}
+			
 			/* 각 div안의 체크박스의 이름 */
 			var chkboxName = $(item).find('input[type="checkbox"]').attr('name');
 			/* 16번대(중복답변가능) 질문항목인지 검사하기위해, 16-1, 16-2, 16-3을 16으로 변환 */
@@ -39,15 +57,31 @@
 			}
 		}); // each End
 
+		pgBarChange();
+		
 	});// ready End
+	
+	function pgBarChange(){
+		/* 누적된 답변수를 통해, 작성 % 를 구하고 초기 progressBar로 세팅 */
+		percent = (progress / qListSize) * 100;
+		percent = percent.toFixed(2);
+		var pgBar = $(document).find('div[class="progress-bar"]')
+		pgBar.css("width", percent + "%");
+		pgBar.text(percent + "% Complete");
+	}
 	
 	function onlyOneCheck(item){
 		var chk = $(item).find('input[type="checkbox"]');
 		
  		chk.click(function(){
-		    if($(this).is(':checked')){
+		   if($(this).is(':checked')){
 		       chk.not(this).prop('checked',false); // 선택한 체크박스를 제외한 나머지 체크박스의 checked 해제
+		       progress++;
+		   } else {
+			   progress--;
 		   }
+		   
+		   pgBarChange();
 		})
 	}
 	
@@ -103,7 +137,6 @@
 				
 				if(c_type != 0){ //주관식 답변이 아닐때 (체크박스 문항일 경우)
 					var chkedleng = $(item).find('input[type="checkbox"]:checked').length;
-					console.log(q_no +"번 문항 leng : " + chkedleng);
 
 					if(q_multiple == 1){ // 단일 체크 문항일 경우
 						if(chkedleng != 1) {
@@ -113,7 +146,6 @@
 						}
 					} else {
 						var noneFlag = $(item).find('input[type="checkbox"]:last').prop("checked"); // 없음을 체크했는지 여부
-						console.log(noneFlag);
 						if(chkedleng != q_multiple && !noneFlag) { // 체크개수가 요구되는 숫자와 다르고 없음을 체크하지도 않은 경우
 							alert(q_no + "번 문항에 답변해주세요!");
 							exitFlag = false;
@@ -202,7 +234,7 @@
 <!-- Progress Bar -->
 <div class="progress" style="margin:0 auto; width:60%">
 	<input type="hidden" name="qListSize" value="${fn:length(questionList)}">
-	<div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100">25% Complete</div>
+	<div class="progress-bar" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 
 <!-- forEach로 문항 뿌리기 -->
