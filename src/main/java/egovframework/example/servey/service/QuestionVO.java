@@ -7,6 +7,9 @@ public class QuestionVO {
 	private String q_text;
 	private String q_category;
 	private int c_type;
+	private String q_required;
+	private int q_multiple;
+	
 	
 	public int getS_seq() {
 		return s_seq;
@@ -37,6 +40,18 @@ public class QuestionVO {
 	}
 	public void setC_type(int c_type) {
 		this.c_type = c_type;
+	}
+	public String getQ_required() {
+		return q_required;
+	}
+	public void setQ_required(String q_required) {
+		this.q_required = q_required;
+	}
+	public int getQ_multiple() {
+		return q_multiple;
+	}
+	public void setQ_multiple(int q_multiple) {
+		this.q_multiple = q_multiple;
 	}
 	
 }

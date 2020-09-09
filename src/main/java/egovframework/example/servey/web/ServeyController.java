@@ -44,6 +44,14 @@ public class ServeyController {
 		return "redirect:/serveyList.do";
 	}
 	
+	@RequestMapping(value="logout.do")
+	public String logout(HttpServletRequest request) {
+		
+		request.getSession().removeAttribute("user");
+		
+		return "redirect:/login.do";
+	}
+	
 	
 	@RequestMapping(value="serveyList.do")
 	public String serveyMain(ModelMap model) {
@@ -54,27 +62,11 @@ public class ServeyController {
 	}
 
 	@RequestMapping(value="serveyMain.do")
-	public String serveyMain(ServeyVO serveyVO, ModelMap model, RedirectAttributes ra, HttpServletRequest request) {
+	public String serveyMain(ServeyVO serveyVO, ModelMap model) {
 		
-		/*이미 설문에 참여한 유저인지 로그를 확인*/
-		LogVO logVO = new LogVO();
-		logVO.setS_seq(serveyVO.getS_seq());
-		String u_id = ((UserVO)request.getSession().getAttribute("user")).getU_id();
-		logVO.setU_id(u_id);
-		
-		int check = serveyService.checkLog(logVO);
-		
-		if(check == 1) { // 이미 설문작성 기록이 있을때
-			
-			ra.addFlashAttribute("Duplicate", "true");
-			
-			return "redirect:/serveyList.do";
-		} else { // 없을경우 정상수행
-			
 			model.addAttribute("servey", serveyService.selectServey(serveyVO));
 			
 			return "servey/serveyMain";
-		}
 	}
 	
 	@RequestMapping(value="serveyForm.do")
@@ -92,7 +84,7 @@ public class ServeyController {
 			
 			ra.addFlashAttribute("Duplicate", "true");
 			
-			return "redirect:/serveyList.do";
+			return "redirect:/serveyMain.do?s_seq=" + questionVO.getS_seq();
 		} else { // 없을경우 정상수행
 			
 			model.addAttribute("questionList", serveyService.selectQuestionList(questionVO));
@@ -102,8 +94,8 @@ public class ServeyController {
 		}
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="insertAnswer.do")
+	@ResponseBody
 	public String insertAnswer(AnswerVO answerVO, HttpServletRequest request) {
 		
 		UserVO user = (UserVO)request.getSession().getAttribute("user");
@@ -112,8 +104,8 @@ public class ServeyController {
 		return serveyService.insertAnswer(answerVO) + "";
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="insertLog.do")
+	@ResponseBody
 	public String insertLog(LogVO logVO, HttpServletRequest request) {
 		
 		UserVO user = (UserVO)request.getSession().getAttribute("user");

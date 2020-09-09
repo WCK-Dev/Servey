@@ -18,22 +18,21 @@
 
 <%@include file="../cmmn/common_top.jsp"%>
 <script>
+	$(document).ready(function(){
+		if('${Duplicate}' == 'true'){
+			alert("죄송합니다.\r\n회원님은 이미 해당 설문에 참여하셨습니다.");
+		}
+	});
+
 	function serveyStrat(s_seq, u_id){
-		/* ajax요청을 통해 log에 해당 유저가 이 설문에 답한 이력이 있는지 검사 */
-		
-		/* 있으면 alert를 통해 이미 참여한 설문임을 알리고, return false */
-		//if() {
-			
-		//} else { /* 없을 경우에만 정상적으로 설문 작성 페이지로 이동 */
 			location.href='serveyForm.do?s_seq=' + s_seq;
-		//}
-		
 	}
 </script>
 </head>
 <body>
 <div class="userBox" style="width: 80%; padding-top:20px; text-align: right;">
 	${sessionScope.user.u_name }(${sessionScope.user.u_id })님 환영합니다.
+	<button class="btn btn-danger" onclick="location.href='logout.do'">로그아웃</button>
 </div>
 	
 <div class="container wrapper">
