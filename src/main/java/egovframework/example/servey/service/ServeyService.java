@@ -8,6 +8,8 @@ public interface ServeyService {
 	
 	List<?> selectServeyList();
 	
+	int checkServey(ServeyVO vo);
+
 	ServeyVO selectServey(ServeyVO vo);
 	
 	List<?> selectQuestionList(QuestionVO vo);
@@ -15,8 +17,12 @@ public interface ServeyService {
 	List<?> selectChoiceList();
 	
 	int insertAnswer(AnswerVO vo);
+
+	int updateAnswer(AnswerVO vo);
 	
 	int insertLog(LogVO vo);
 	
 	int checkLog(LogVO vo);
+	
+	List<?> selectAnswerList(AnswerVO vo);
 }

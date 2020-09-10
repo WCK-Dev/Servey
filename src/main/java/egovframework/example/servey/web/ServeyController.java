@@ -1,5 +1,7 @@
 package egovframework.example.servey.web;
 
+import java.sql.Date;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -62,26 +64,56 @@ public class ServeyController {
 	}
 
 	@RequestMapping(value="serveyMain.do")
-	public String serveyMain(ServeyVO serveyVO, ModelMap model) {
-		
-			model.addAttribute("servey", serveyService.selectServey(serveyVO));
+	public String serveyMain(ServeyVO serveyVO, LogVO logVO, ModelMap model, RedirectAttributes ra, HttpServletRequest request) {
 			
-			return "servey/serveyMain";
+			int check = serveyService.checkServey(serveyVO);
+			
+			if(check == 0) {
+				ra.addFlashAttribute("noneServey", "true");
+				
+				return "redirect:/serveyList.do"; 
+			}else {
+				
+				String u_id = ((UserVO)request.getSession().getAttribute("user")).getU_id();
+				logVO.setU_id(u_id);
+				
+				model.addAttribute("servey", serveyService.selectServey(serveyVO));
+				model.addAttribute("log", serveyService.checkLog(logVO));
+				
+				return "servey/serveyMain";
+			}
+			
 	}
 	
 	@RequestMapping(value="serveyForm.do")
-	public String serveyForm(QuestionVO questionVO, ModelMap model, RedirectAttributes ra, HttpServletRequest request) {
+	public String serveyForm(ServeyVO serveyVO, QuestionVO questionVO, LogVO logVO, ModelMap model, RedirectAttributes ra, HttpServletRequest request) {
+		
+		int serveyCheck = serveyService.checkServey(serveyVO);
+		
+		if(serveyCheck == 0) {
+			ra.addFlashAttribute("noneServey", "true");
+			
+			return "redirect:/serveyList.do"; 
+		}
+		
+		serveyVO = serveyService.selectServey(serveyVO);
+		Date now = new Date(System.currentTimeMillis());
+		Date s_stratdate = serveyVO.getS_startdate();
+		Date s_enddate = serveyVO.getS_enddate();
+
+		if(now.before(s_stratdate) || now.after(s_enddate)) {
+			ra.addFlashAttribute("notPeriod", "true");
+			
+			return "redirect:/serveyMain.do?s_seq=" + questionVO.getS_seq();
+		}
 		
 		/*이미 설문에 참여한 유저인지 로그를 확인*/
-		LogVO logVO = new LogVO();
-		logVO.setS_seq(questionVO.getS_seq());
 		String u_id = ((UserVO)request.getSession().getAttribute("user")).getU_id();
 		logVO.setU_id(u_id);
 		
 		int check = serveyService.checkLog(logVO);
 		
 		if(check == 1) { // 이미 설문작성 기록이 있을때
-			
 			ra.addFlashAttribute("Duplicate", "true");
 			
 			return "redirect:/serveyMain.do?s_seq=" + questionVO.getS_seq();
@@ -94,6 +126,54 @@ public class ServeyController {
 		}
 	}
 	
+	@RequestMapping(value="serveyModify.do")
+	public String serveyModify(ServeyVO serveyVO, QuestionVO questionVO, LogVO logVO, ModelMap model, RedirectAttributes ra, HttpServletRequest request) {
+		
+		int serveyCheck = serveyService.checkServey(serveyVO);
+		
+		if(serveyCheck == 0) {
+			ra.addFlashAttribute("noneServey", "true");
+			
+			return "redirect:/serveyList.do"; 
+		}
+		
+		serveyVO = serveyService.selectServey(serveyVO);
+		Date now = new Date(System.currentTimeMillis());
+		Date s_stratdate = serveyVO.getS_startdate();
+		Date s_enddate = serveyVO.getS_enddate();
+
+		if(now.before(s_stratdate) || now.after(s_enddate)) {
+			ra.addFlashAttribute("notPeriod", "true");
+			
+			return "redirect:/serveyMain.do?s_seq=" + questionVO.getS_seq();
+		}
+		
+		/*이미 설문에 참여한 유저인지 로그를 확인*/
+		String u_id = ((UserVO)request.getSession().getAttribute("user")).getU_id();
+		logVO.setU_id(u_id);
+		
+		int check = serveyService.checkLog(logVO);
+		
+		if(check == 1) { // 이미 설문작성 기록이 있을때
+			
+			AnswerVO answerVO = new AnswerVO();
+			answerVO.setS_seq(questionVO.getS_seq());
+			answerVO.setU_id(u_id);
+			
+			model.addAttribute("questionList", serveyService.selectQuestionList(questionVO));
+			model.addAttribute("choiceList", serveyService.selectChoiceList());
+			model.addAttribute("answerList", serveyService.selectAnswerList(answerVO));
+			
+			return "servey/serveyModify";
+		} else { // 없을경우 Main으로
+			
+			ra.addFlashAttribute("noneLog", "true");
+			
+			return "redirect:/serveyMain.do?s_seq=" + questionVO.getS_seq();
+			
+		}
+	}
+	
 	@RequestMapping(value="insertAnswer.do")
 	@ResponseBody
 	public String insertAnswer(AnswerVO answerVO, HttpServletRequest request) {
@@ -102,6 +182,16 @@ public class ServeyController {
 		answerVO.setU_id(user.getU_id());
 		
 		return serveyService.insertAnswer(answerVO) + "";
+	}
+	
+	@RequestMapping(value="updateAnswer.do")
+	@ResponseBody
+	public String updateAnswer(AnswerVO answerVO, HttpServletRequest request) {
+		
+		UserVO user = (UserVO)request.getSession().getAttribute("user");
+		answerVO.setU_id(user.getU_id());
+		
+		return serveyService.updateAnswer(answerVO) + "";
 	}
 	
 	@RequestMapping(value="insertLog.do")

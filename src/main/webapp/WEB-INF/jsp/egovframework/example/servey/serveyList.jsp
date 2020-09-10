@@ -18,6 +18,12 @@
 	p { font-size: 1em}
 </style>
 
+<script>
+if('${noneServey}' == 'true'){
+	alert("존재하지 않는 설문 번호입니다.");
+}
+</script>
+
 <body>
 <div class="userBox" style="width: 80%; padding-top:20px; text-align: right;">
 	${sessionScope.user.u_name }(${sessionScope.user.u_id })님 환영합니다.
@@ -32,8 +38,8 @@
 	<c:forEach items="${serveyList }" var="servey">
 		<div style="border: 2px solid lightgray; margin-bottom : 10px; padding: 20px;">
 			<h2>설문명 : ${servey.sName }</h2>
-			<p>설문조사 시작일 : <fmt:formatDate timeZone="UTC" pattern="yyyy-MM-dd" value="${servey.sStartdate }"/><p>
-			<p>설문조사 종료일 : <fmt:formatDate timeZone="UTC" pattern="yyyy-MM-dd" value="${servey.sEnddate }"/><p>
+			<p>설문조사 시작일 : <fmt:formatDate pattern="yyyy-MM-dd" value="${servey.sStartdate }"/><p>
+			<p>설문조사 종료일 : <fmt:formatDate pattern="yyyy-MM-dd" value="${servey.sEnddate }"/><p>
 			<p>조사주관 : ${servey.sCompany }<p>
 			
 			<div align="right">

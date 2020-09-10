@@ -1,11 +1,11 @@
 package egovframework.example.servey.service;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class LogVO {
 	
 	private String u_id;
-	private Timestamp inputdate;
+	private Date inputdate;
 	private int s_seq;
 	
 	public String getU_id() {
@@ -14,10 +14,10 @@ public class LogVO {
 	public void setU_id(String u_id) {
 		this.u_id = u_id;
 	}
-	public Timestamp getInputdate() {
+	public Date getInputdate() {
 		return inputdate;
 	}
-	public void setInputdate(Timestamp inputdate) {
+	public void setInputdate(Date inputdate) {
 		this.inputdate = inputdate;
 	}
 	public int getS_seq() {

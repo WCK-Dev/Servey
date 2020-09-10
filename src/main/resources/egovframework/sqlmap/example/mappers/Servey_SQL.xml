@@ -16,6 +16,12 @@
 		FROM servey
 		ORDER BY s_seq;
 	</select>
+	
+	<select id="checkServey" resultType="int">
+		SELECT COUNT(*)
+		FROM servey
+		WHERE s_seq = #{s_seq }
+	</select>
 
 	<select id="selectServey" resultType="serveyVO">
 		SELECT * 
@@ -47,11 +53,21 @@
 						)
 	</insert>
 	
+	<insert id="updateAnswer" parameterType="answerVO">
+		UPDATE answer 
+		SET a_answer = #{a_answer}
+		WHERE q_no = #{q_no} 
+			AND u_id = #{u_id}
+			AND s_seq = #{s_seq};
+	</insert>
+	
 	<insert id="insertLog" parameterType="logVO">
 		INSERT INTO log(u_id
+					   ,inputdate
 					   ,s_seq
 						)
 				VALUES(#{u_id}
+					  ,sysdate()
 					  ,#{s_seq}
 					  )
 	</insert>
@@ -59,6 +75,12 @@
 	<select id="checkLog" parameterType="logVo" resultType="int">
 		SELECT COUNT(*)
 		FROM log
+		WHERE u_id = #{u_id} AND s_seq = #{s_seq}
+	</select>
+	
+	<select id="selectAnswerList" parameterType="answerVO" resultType="answerVO">
+		SELECT *
+		FROM answer
 		WHERE u_id = #{u_id} AND s_seq = #{s_seq}
 	</select>
 	

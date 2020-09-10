@@ -30,6 +30,8 @@ public interface ServeyMapper {
 	UserVO login(UserVO vo);
 	
 	List<?> selectServeyList();
+
+	int checkServey(ServeyVO vo);
 	
 	ServeyVO selectServey(ServeyVO vo);
 	
@@ -39,7 +41,11 @@ public interface ServeyMapper {
 	
 	int insertAnswer(AnswerVO vo);
 	
+	int updateAnswer(AnswerVO vo);
+
 	int insertLog(LogVO vo);
 	
 	int checkLog(LogVO vo);
+	
+	List<?> selectAnswerList(AnswerVO vo);
 }

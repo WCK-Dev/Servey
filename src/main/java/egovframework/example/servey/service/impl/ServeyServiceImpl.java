@@ -54,6 +54,12 @@ public class ServeyServiceImpl extends EgovAbstractServiceImpl implements Servey
 		return serveyDAO.selectServeyList();
 	}
 
+
+	@Override
+	public int checkServey(ServeyVO vo) {
+		return serveyDAO.checkServey(vo);
+	}
+	
 	@Override
 	public ServeyVO selectServey(ServeyVO vo) {
 		return serveyDAO.selectServey(vo);
@@ -78,10 +84,20 @@ public class ServeyServiceImpl extends EgovAbstractServiceImpl implements Servey
 	public int insertLog(LogVO vo) {
 		return serveyDAO.insertLog(vo);
 	}
+	
+	@Override
+	public int updateAnswer(AnswerVO vo) {
+		return serveyDAO.updateAnswer(vo);
+	}
 
 	@Override
 	public int checkLog(LogVO vo) {
 		return serveyDAO.checkLog(vo);
+	}
+
+	@Override
+	public List<?> selectAnswerList(AnswerVO vo) {
+		return serveyDAO.selectAnswerList(vo);
 	}
 
 }

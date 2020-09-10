@@ -1,13 +1,13 @@
 package egovframework.example.servey.service;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class ServeyVO {
 	
 	private int s_seq;
 	private String s_name;
-	private Timestamp s_startdate;
-	private Timestamp s_enddate;
+	private Date s_startdate;
+	private Date s_enddate;
 	private String s_company;
 	
 	public int getS_seq() {
@@ -22,16 +22,16 @@ public class ServeyVO {
 	public void setS_name(String s_name) {
 		this.s_name = s_name;
 	}
-	public Timestamp getS_startdate() {
+	public Date getS_startdate() {
 		return s_startdate;
 	}
-	public void setS_startdate(Timestamp s_startdate) {
+	public void setS_startdate(Date s_startdate) {
 		this.s_startdate = s_startdate;
 	}
-	public Timestamp getS_enddate() {
+	public Date getS_enddate() {
 		return s_enddate;
 	}
-	public void setS_enddate(Timestamp s_enddate) {
+	public void setS_enddate(Date s_enddate) {
 		this.s_enddate = s_enddate;
 	}
 	public String getS_company() {

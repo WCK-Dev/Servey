@@ -42,16 +42,25 @@
 			<input type="hidden" name="q_multiple" value="${question.q_multiple }">
 			<p class="q-text"><b>문항 ${question.q_no }. <c:if test="${question.q_category != ''}">[${question.q_category }]</c:if></b> ${question.q_text }</p>
 			
-			<c:forEach items="#{choiceList }" var="choice">
-				<c:if test="${question.c_type == choice.c_type }">
-					<input type="checkbox" id="${question.q_no }.${choice.c_value }" name="${question.q_no }" value="${choice.c_value }" style="margin-left: 7%">
-					<label for="${question.q_no }.${choice.c_value }" style="padding-left: 10px; padding-right: 20px">${choice.c_text }</label>
-					<br>
-				</c:if>
-			</c:forEach>
-			<c:if test="${question.c_type == 0}">
-				<textarea rows="12" cols="130" id="${question.q_no }" style="margin-left: 7%"></textarea>
-			</c:if>
+			<c:forEach items="${answerList }" var="answer">
+				<c:if test="${answer.q_no == question.q_no }">
+					<c:set value="${fn:split(answer.a_answer,',')}" var="userAnswer"/>
+					<c:forEach items="${choiceList }" var="choice">
+						<c:if test="${question.c_type == choice.c_type }">
+							<input type="checkbox" id="${question.q_no }.${choice.c_value }" name="${question.q_no }" value="${choice.c_value }" style="margin-left: 7%"
+								<c:forEach items="${userAnswer }" var="eachAnswer">
+									<c:if test="${choice.c_value == eachAnswer }">checked</c:if>
+								</c:forEach>
+							>
+							<label for="${question.q_no }.${choice.c_value }" style="padding-left: 10px; padding-right: 20px">${choice.c_text }</label>
+							<br>
+						</c:if>
+					</c:forEach>
+					<c:if test="${question.c_type == 0}">
+						<textarea rows="12" cols="130" id="${question.q_no }" style="margin-left: 7%"><c:if test="${question.q_no == answer.q_no }">${answer.a_answer }</c:if></textarea>
+					</c:if>
+				</c:if> <!-- answerList 반복시 q_no가 같은지 체크 -->
+			</c:forEach> <!-- answerList반복 -->
 			
 		</div>
 	
@@ -67,7 +76,7 @@
 		
 	<c:if test="${i.last }">
 			<!-- 반복횟수가 마지막이면 설문 제출버튼 출력 -->
-			<button class="btn btn-primary btn-block" onclick="submit(${i.index + 1})">설문 제출</button>
+			<button class="btn btn-primary btn-block" onclick="modify(${i.index + 1})">설문 내용 수정</button>
 		</div>
 	</c:if>
 </c:forEach>
