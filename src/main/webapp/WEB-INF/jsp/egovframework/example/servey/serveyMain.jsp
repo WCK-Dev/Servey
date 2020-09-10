@@ -48,6 +48,9 @@
 </div>
 
 <div class="container wrapper">
+ <!-- 일수 계산용 parseNumber -->
+ <fmt:parseNumber value="${servey.s_startdate.time / (1000*60*60*24)}" integerOnly="true" var="startDate"/>
+ <fmt:parseNumber value="${servey.s_enddate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"/>
 
 <p>${servey.s_company } 회원분들을 대상으로 ${servey.s_name }를 진행합니다.</p>
 <p> 응답하신 내용은 통계법 33조(비밀의 보호)에 의거 비밀이 보장되며,</p>
@@ -59,7 +62,7 @@
  
 <p> ㅇ 조사주관 : ${servey.s_company }</p>
 <p>ㅇ 참여대상 : 회원(로그인 필요)</p>
-<p>ㅇ 참여기간 : '<fmt:formatDate pattern="yy. MM. dd.(E)" value="${servey.s_startdate }"/> ~ <fmt:formatDate pattern="yy. MM. dd.(E)" value="${servey.s_enddate }"/>, 총 5일간</p>
+<p>ㅇ 참여기간 : '<fmt:formatDate pattern="yy. MM. dd.(E)" value="${servey.s_startdate }"/> ~ <fmt:formatDate pattern="yy. MM. dd.(E)" value="${servey.s_enddate }"/>, 총 ${endDate - startDate }일간</p>
 <p>ㅇ 참여방법 : 하단의 설문시작 버튼을 클릭하여 총 19개의 문항에 답변을 마치면 응모 완료</p>
 <p>ㅇ 당첨자 발표 : '20. 10. 01.(목), 퓨전소프트 공지사항 게시판</p>
  
