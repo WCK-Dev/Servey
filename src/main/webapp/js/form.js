@@ -3,12 +3,13 @@ var progress = 0;
 var percent = 0.0;
 
 $(document).ready(function(){
-	qListSize= $('input[name="qListSize"]').val() - 1; //전체 문항수
+	qListSize= $('input[name="qListSize"]').val(); //전체 문항수
 	console.log(qListSize);
 	
 	$("[class^=question]").each(function(index, item){
 		/* progress 초기값 세팅(화면로딩시에 몇 %인지 == 수정일때는 0%에서 시작하면 안됨) */
 		var c_type = $(item).find('input[name="c_type"]').val();
+		var q_multiple = $(item).find('input[name="q_multiple"]').val();
 		
 		/* 작성된 객관식(체크) 답변의 수를 누적 */
 		if(c_type != -1 && c_type != 0){ 
@@ -25,14 +26,11 @@ $(document).ready(function(){
 		}
 		
 		/* 각 div안의 체크박스의 이름 */
-		if(c_type != -1 && c_type != 0){
-			/* 16번대(중복답변가능) 질문항목인지 검사하기위해, 16-1, 16-2, 16-3을 16으로 변환 */
-			var chkboxName = $(item).find('input[type="checkbox"]').attr('name');
-			chkboxName = chkboxName.substring(0, 2);
+		if(c_type != -1 && c_type != 0){ // -1은 답변이 없는 타이틀 문항 == (ex/16번) && 0은 주관식 답변 문항
 			
-			if(chkboxName != 16) { // 16번대 질문이 아니면 하나만 클릭할 수 있도록 click이벤트 추가
+			if(q_multiple == 1) { //객관식(체크) 형태로 답변하는 문항중, 답변 갯수가 1인항목들
 			    onlyOneCheck(item);
-			} else { //16번대 질문에는 2개까지 답변할 수 있도록 click이벤트 추가
+			} else { //객관식(체크) 형태로 답변하는 문항중, 답변 갯수가 복수인 항목들
 				multipleCheck(item);
 			}
 		} else if (c_type == 0) {

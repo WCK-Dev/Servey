@@ -21,7 +21,15 @@
 <body>
 <!-- Progress Bar -->
 <div class="progress" style="margin:0 auto; width:60%">
-	<input type="hidden" name="qListSize" value="${fn:length(questionList)}">
+
+	<!-- js에서 사용될 question의 사이즈를 세팅함 -->
+	<c:set var="qSize" value="0"/>
+	<c:forEach items="${questionList }" var="q">
+		<c:if test="${q.c_type != -1 }">
+			<c:set var="qSize" value="${qSize = qSize + 1 }"/>
+		</c:if>
+	</c:forEach>
+	<input type="hidden" name="qListSize" value="${qSize}">
 	<div class="progress-bar" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 
