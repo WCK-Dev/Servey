@@ -40,7 +40,7 @@ CREATE TABLE `answer` (
 
 LOCK TABLES `answer` WRITE;
 /*!40000 ALTER TABLE `answer` DISABLE KEYS */;
-INSERT INTO `answer` VALUES ('2','wck','3',1),('3','wck','4',1),('1','wck','4',1),('6','wck','3',1),('5','wck','1',1),('4','wck','7',1),('7','wck','2',1),('10','wck','2',1),('9','wck','2',1),('8','wck','6',1),('12','wck','3',1),('13','wck','4',1),('11','wck','5',1),('14','wck','5',1),('16-1','wck','5,7',1),('16-2','wck','1,5',1),('16-3','wck','4,6',1),('16','wck','',1),('15','wck','1',1),('17','wck','asd',1),('18','wck','',1),('19','wck','',1);
+INSERT INTO `answer` VALUES ('2','wck','3',1),('3','wck','4',1),('1','wck','4',1),('6','wck','3',1),('5','wck','1',1),('4','wck','7',1),('7','wck','2',1),('10','wck','2',1),('9','wck','2',1),('8','wck','6',1),('12','wck','3',1),('13','wck','4',1),('11','wck','5',1),('14','wck','5',1),('16-1','wck','5,7',1),('16-2','wck','1,5',1),('16-3','wck','4,6',1),('16','wck','',1),('15','wck','1',1),('17','wck','asd',1),('18','wck','',1),('19','wck','',1),('2','fusion','3',1),('1','fusion','4',1),('4','fusion','4',1),('3','fusion','6',1),('6','fusion','4',1),('5','fusion','2',1),('7','fusion','2',1),('8','fusion','2',1),('9','fusion','2',1),('10','fusion','2',1),('11','fusion','5',1),('12','fusion','3',1),('13','fusion','5',1),('14','fusion','2',1),('15','fusion','2',1),('16','fusion','',1),('16-1','fusion','5,6',1),('16-2','fusion','3,4',1),('16-3','fusion','3,4',1),('17','fusion','2',1),('18','fusion','',1),('19','fusion','2',1);
 /*!40000 ALTER TABLE `answer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +92,7 @@ CREATE TABLE `log` (
 
 LOCK TABLES `log` WRITE;
 /*!40000 ALTER TABLE `log` DISABLE KEYS */;
-INSERT INTO `log` VALUES ('wck','2020-09-10',1);
+INSERT INTO `log` VALUES ('wck','2020-09-10',1),('fusion','2020-09-10',1);
 /*!40000 ALTER TABLE `log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,4 +187,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-10 17:48:10
+-- Dump completed on 2020-09-10 18:25:50

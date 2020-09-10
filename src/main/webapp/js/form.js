@@ -210,90 +210,97 @@ function testValidation(div){
 }
 
 function submit(totalCnt) {
+	var nowDiv = $("[id^=wrap]:last");
 	
-	var sum = 0;
-	
-	$("[class^=question]").each(function(index, item){
+	if(testValidation(nowDiv)){
+		var sum = 0;
 		
-		var q_no = $(item).children('input[name=q_no]').val();
-		var c_type = $(item).children('input[name=c_type]').val();
-		var s_seq = $(item).children('input[name=s_seq]').val();
-		var a_answer = "";
-		
-		if(c_type != 0) {
-			$(item).children(':checkbox:checked').each(function(index, item){
-				if(index == 0) {
-					a_answer = $(item).val();
-				} else {
-					a_answer += ","+$(item).val();
-				}
-			})
-		} else {
-			a_answer = $(item).children('textarea').val();
-		}
-		
-		$.ajax({
-			type : 'POST',
-			url : "insertAnswer.do",
-			dataType : "text",
-			data : {"q_no" : q_no
-				   ,"a_answer": a_answer
-				   ,"s_seq": s_seq
-					},
+		$("[class^=question]").each(function(index, item){
 			
-			success : function (result) {
-				sum++;
-				if(sum == totalCnt){
-					alert("설문이 제출되었습니다.\r\n참여해주셔서 감사합니다.");
-					insertLog();
-					location.href="serveyMain.do?s_seq=" + s_seq;
-				}
+			var q_no = $(item).children('input[name=q_no]').val();
+			var c_type = $(item).children('input[name=c_type]').val();
+			var s_seq = $(item).children('input[name=s_seq]').val();
+			var a_answer = "";
+			
+			if(c_type != 0) {
+				$(item).children(':checkbox:checked').each(function(index, item){
+					if(index == 0) {
+						a_answer = $(item).val();
+					} else {
+						a_answer += ","+$(item).val();
+					}
+				})
+			} else {
+				a_answer = $(item).children('textarea').val();
 			}
-		}); // ajax End
-	}); // each End
+			
+			$.ajax({
+				type : 'POST',
+				url : "insertAnswer.do",
+				dataType : "text",
+				data : {"q_no" : q_no
+					,"a_answer": a_answer
+					,"s_seq": s_seq
+				},
+				
+				success : function (result) {
+					sum++;
+					if(sum == totalCnt){
+						alert("설문이 제출되었습니다.\r\n참여해주셔서 감사합니다.");
+						insertLog();
+						location.href="serveyMain.do?s_seq=" + s_seq;
+					}
+				}
+			}); // ajax End
+		}); // each End
+	}
+	
 }
 
 function modify(totalCnt) {
+	var nowDiv = $("[id^=wrap]:last");
 	
-	var sum = 0;
-	
-	$("[class^=question]").each(function(index, item){
+	if(testValidation(nowDiv)){
+		var sum = 0;
 		
-		var q_no = $(item).children('input[name=q_no]').val();
-		var c_type = $(item).children('input[name=c_type]').val();
-		var s_seq = $(item).children('input[name=s_seq]').val();
-		var a_answer = "";
-		
-		if(c_type != 0) {
-			$(item).children(':checkbox:checked').each(function(index, item){
-				if(index == 0) {
-					a_answer = $(item).val();
-				} else {
-					a_answer += ","+$(item).val();
-				}
-			})
-		} else {
-			a_answer = $(item).children('textarea').val();
-		}
-		
-		$.ajax({
-			type : 'POST',
-			url : "updateAnswer.do",
-			dataType : "text",
-			data : {"q_no" : q_no
-				   ,"a_answer": a_answer
-				   ,"s_seq": s_seq
-					},
+		$("[class^=question]").each(function(index, item){
 			
-			success : function (result) {
-				sum++;
-				if(sum == totalCnt){
-					alert("설문이 수정되었습니다.\r\n참여해주셔서 감사합니다.");
-					location.href="serveyMain.do?s_seq=" + s_seq;
-				}
+			var q_no = $(item).children('input[name=q_no]').val();
+			var c_type = $(item).children('input[name=c_type]').val();
+			var s_seq = $(item).children('input[name=s_seq]').val();
+			var a_answer = "";
+			
+			if(c_type != 0) {
+				$(item).children(':checkbox:checked').each(function(index, item){
+					if(index == 0) {
+						a_answer = $(item).val();
+					} else {
+						a_answer += ","+$(item).val();
+					}
+				})
+			} else {
+				a_answer = $(item).children('textarea').val();
 			}
-		}); // ajax End
-	}); // each End
+			
+			$.ajax({
+				type : 'POST',
+				url : "updateAnswer.do",
+				dataType : "text",
+				data : {"q_no" : q_no
+					   ,"a_answer": a_answer
+					   ,"s_seq": s_seq
+						},
+				
+				success : function (result) {
+					sum++;
+					if(sum == totalCnt){
+						alert("설문이 수정되었습니다.\r\n참여해주셔서 감사합니다.");
+						location.href="serveyMain.do?s_seq=" + s_seq;
+					}
+				}
+			}); // ajax End
+		}); // each End
+	}
 }
 
 function insertLog(){
