@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>설문조사 메인페이지</title>
+<%@include file="../cmmn/common_top.jsp"%>
 <style>
 	* { font-family: 'Noto Sans KR', sans-serif; }
 	
@@ -16,20 +17,11 @@
 	p { font-size: 1.5em}
 </style>
 
-<%@include file="../cmmn/common_top.jsp"%>
 <script>
 	$(document).ready(function(){
-		if('${Duplicate}' == 'true'){
-			alert("회원님은 이미 해당 설문에 참여하셨습니다.\r\n설문 답변을 수정하시려면 수정하기를 선택해주세요.");
-		}
-		
-		if('${noneLog}' == 'true'){
-			alert("회원님은 해당 설문에 답변하신 기록이 없습니다..\r\n먼저 설문시작을 통해 설문을 제출해주세요.");
-		}
-		
-		if('${notPeriod}' == 'true'){
-			alert("지금은 설문조사기간이 아닙니다.\r\n현재는 설문을 등록, 수정할 수 없습니다.");
-		}
+		if('${Duplicate}' == 'true')	alert("회원님은 이미 해당 설문에 참여하셨습니다.\r\n설문 답변을 수정하시려면 수정하기를 선택해주세요.");
+		if('${noneLog}' == 'true')		alert("회원님은 해당 설문에 답변하신 기록이 없습니다..\r\n먼저 설문시작을 통해 설문을 제출해주세요.");
+		if('${notPeriod}' == 'true')	alert("지금은 설문조사기간이 아닙니다.\r\n현재는 설문을 등록, 수정할 수 없습니다.");
 	});
 
 	function serveyStrat(s_seq){
@@ -40,6 +32,7 @@
 			location.href='serveyModify.do?s_seq=' + s_seq;
 	}
 </script>
+
 </head>
 <body>
 <div class="userBox" style="width: 80%; padding-top:20px; text-align: right;">

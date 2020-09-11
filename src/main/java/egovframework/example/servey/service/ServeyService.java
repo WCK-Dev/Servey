@@ -22,6 +22,8 @@ public interface ServeyService {
 	
 	int insertLog(LogVO vo);
 	
+	int updateLog(LogVO vo);
+	
 	int checkLog(LogVO vo);
 	
 	List<?> selectAnswerList(AnswerVO vo);

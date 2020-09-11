@@ -9,18 +9,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>설문조사 응답 폼</title>
 <%@include file="../cmmn/common_top.jsp"%>
-</head>
 <style>
 	* { font-family: 'Noto Sans KR', sans-serif; }
 	
-	.wrapper { margin: 15px auto; width: 80%; border: 2px solid black;}
+	.wrapper { margin: 35px auto; width: 80%; border: 2px solid black;}
 	
 	p { font-size: 1.5em}
 </style>
 <script type="text/javascript"src="${pageContext.request.contextPath }/js/form.js"></script>
+</head>
 <body>
 <!-- Progress Bar -->
-<div class="progress" style="margin:0 auto; width:60%">
+<div class="progress" style="margin:0 auto; width:60%; height: 3%; ; position: absolute; top:0px; left:20%;">
 
 	<!-- js에서 사용될 question의 사이즈를 세팅함 -->
 	<c:set var="qSize" value="0"/>
@@ -30,18 +30,18 @@
 		</c:if>
 	</c:forEach>
 	<input type="hidden" name="qListSize" value="${qSize}">
-	<div class="progress-bar" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+	<div class="progress-bar"></div>
 </div>
 
 <!-- forEach로 문항 뿌리기 -->
 <c:forEach items="${questionList }" var="question" varStatus="i">
-
 	
 	<c:if test="${(i.index)%5 == 0}">
 		<!-- 5문항씩 div로 나누기 -->
-		<div class="container wrapper" id="wrap${i.index }"<c:if test="${!i.first}">style="display:none"</c:if>>
+		<div class="container wrapper" id="wrap${i.index }" <c:if test="${!i.first}">style="display:none"</c:if>>
 	</c:if>
 	
+		<!-- 각 문항의 div -->
 		<div class="question${question.q_no }" style="margin-bottom: 20px">
 			<input type="hidden" name="s_seq" value="${question.s_seq }">
 			<input type="hidden" name="q_no" value="${question.q_no}"> 
@@ -69,7 +69,6 @@
 					</c:if>
 				</c:if> <!-- answerList 반복시 q_no가 같은지 체크 -->
 			</c:forEach> <!-- answerList반복 -->
-			
 		</div>
 	
 	<c:if test="${(i.index + 1)%5 == 0}">

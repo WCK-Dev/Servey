@@ -6,13 +6,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>로그인</title>
 <%@include file="../cmmn/common_top.jsp"%>
-
 <style>
 * { font-family: 'Noto Sans KR', sans-serif; }
 * { box-shadow: 0 0!important;}
 
 .wrapper { margin: 50px auto; width: 500px;}
 </style>
+
+<script>
+if('${loginErrMsg}' == 'true'){
+	alert("로그인이 실패하였습니다.\r\n아이디와 비밀번호를 확인해주세요.");
+}
+</script>
 
 </head>
 <body>

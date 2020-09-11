@@ -9,7 +9,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>설문조사 메인페이지</title>
 <%@include file="../cmmn/common_top.jsp"%>
-</head>
 <style>
 	* { font-family: 'Noto Sans KR', sans-serif; }
 	
@@ -24,6 +23,7 @@ if('${noneServey}' == 'true'){
 }
 </script>
 
+</head>
 <body>
 <div class="userBox" style="width: 80%; padding-top:20px; text-align: right;">
 	${sessionScope.user.u_name }(${sessionScope.user.u_id })님 환영합니다.

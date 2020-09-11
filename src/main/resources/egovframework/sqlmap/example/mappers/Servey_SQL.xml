@@ -3,12 +3,10 @@
 <mapper namespace="egovframework.example.servey.service.impl.ServeyMapper">
 
 	<select id="login" resultType="userVO">
-	
 		SELECT u_id, u_name
 		FROM user
 		WHERE u_id = #{u_id }
 			AND u_pwd = #{u_pwd }
-	
 	</select>
 	
 	<select id="selectServeyList" resultType="egovMap">
@@ -70,6 +68,13 @@
 					  ,sysdate()
 					  ,#{s_seq}
 					  )
+	</insert>
+	
+	<insert id="updateLog" parameterType="logVO">
+		UPDATE log
+		SET inputdate = sysdate()
+		WHERE u_id=#{u_id} 
+			AND s_seq = #{s_seq}
 	</insert>
 	
 	<select id="checkLog" parameterType="logVo" resultType="int">

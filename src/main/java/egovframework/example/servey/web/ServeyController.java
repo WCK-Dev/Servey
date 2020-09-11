@@ -39,11 +39,18 @@ public class ServeyController {
 	}
 	
 	@RequestMapping(value="login.do", method=RequestMethod.POST)
-	public String login(UserVO userVO, HttpServletRequest request) {
+	public String login(UserVO userVO, HttpServletRequest request, RedirectAttributes ra) {
 		
-		request.getSession().setAttribute("user", serveyService.login(userVO));
+		UserVO user = new UserVO();
+		user = serveyService.login(userVO);
 		
-		return "redirect:/serveyList.do";
+		if(user == null) {
+			ra.addFlashAttribute("loginErrMsg", "true");
+			return "redirect:/login.do";
+		} else {
+			 request.getSession().setAttribute("user", serveyService.login(userVO));
+			return "redirect:/serveyList.do";
+		}
 	}
 	
 	@RequestMapping(value="logout.do")
@@ -68,12 +75,12 @@ public class ServeyController {
 			
 			int check = serveyService.checkServey(serveyVO);
 			
-			if(check == 0) {
+			if(check == 0) { //요청된 s_seq값에 따라 DB조회결과, 해당 설문이 없을 때
 				ra.addFlashAttribute("noneServey", "true");
 				
 				return "redirect:/serveyList.do"; 
+			
 			}else {
-				
 				String u_id = ((UserVO)request.getSession().getAttribute("user")).getU_id();
 				logVO.setU_id(u_id);
 				
@@ -96,12 +103,13 @@ public class ServeyController {
 			return "redirect:/serveyList.do"; 
 		}
 		
+		/* 설문조사 기한에 맞는지 체크 */
 		serveyVO = serveyService.selectServey(serveyVO);
 		Date now = new Date(System.currentTimeMillis());
 		Date s_stratdate = serveyVO.getS_startdate();
 		Date s_enddate = serveyVO.getS_enddate();
 
-		if(now.before(s_stratdate) || now.after(s_enddate)) {
+		if(now.before(s_stratdate) || now.after(s_enddate)) { // 검사기한이 지나거나, 이전일때
 			ra.addFlashAttribute("notPeriod", "true");
 			
 			return "redirect:/serveyMain.do?s_seq=" + questionVO.getS_seq();
@@ -154,7 +162,12 @@ public class ServeyController {
 		
 		int check = serveyService.checkLog(logVO);
 		
-		if(check == 1) { // 이미 설문작성 기록이 있을때
+		if(check == 0) { // 설문 작성 기록이 없을떄
+			ra.addFlashAttribute("noneLog", "true");
+			
+			return "redirect:/serveyMain.do?s_seq=" + questionVO.getS_seq();
+			
+		} else { // 있을경우 정상수행
 			
 			AnswerVO answerVO = new AnswerVO();
 			answerVO.setS_seq(questionVO.getS_seq());
@@ -165,12 +178,6 @@ public class ServeyController {
 			model.addAttribute("answerList", serveyService.selectAnswerList(answerVO));
 			
 			return "servey/serveyModify";
-		} else { // 없을경우 Main으로
-			
-			ra.addFlashAttribute("noneLog", "true");
-			
-			return "redirect:/serveyMain.do?s_seq=" + questionVO.getS_seq();
-			
 		}
 	}
 	
@@ -202,6 +209,16 @@ public class ServeyController {
 		logVO.setU_id(user.getU_id());
 		
 		return serveyService.insertLog(logVO) + "";
+	}
+	
+	@RequestMapping(value="updateLog.do")
+	@ResponseBody
+	public String updateLog(LogVO logVO, HttpServletRequest request) {
+		
+		UserVO user = (UserVO)request.getSession().getAttribute("user");
+		logVO.setU_id(user.getU_id());
+		
+		return serveyService.updateLog(logVO) + "";
 	}
 	
 }

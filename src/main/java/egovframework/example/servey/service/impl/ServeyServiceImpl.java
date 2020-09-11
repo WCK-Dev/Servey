@@ -86,6 +86,11 @@ public class ServeyServiceImpl extends EgovAbstractServiceImpl implements Servey
 	}
 	
 	@Override
+	public int updateLog(LogVO vo) {
+		return serveyDAO.updateLog(vo);
+	}
+	
+	@Override
 	public int updateAnswer(AnswerVO vo) {
 		return serveyDAO.updateAnswer(vo);
 	}
