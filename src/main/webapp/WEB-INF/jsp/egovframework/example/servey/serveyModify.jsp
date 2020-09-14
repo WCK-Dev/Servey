@@ -65,7 +65,7 @@
 						</c:if>
 					</c:forEach>
 					<c:if test="${question.c_type == 0}">
-						<textarea rows="12" cols="130" id="${question.q_no }" style="margin-left: 7%"><c:if test="${question.q_no == answer.q_no }">${answer.a_answer }</c:if></textarea>
+						<textarea rows="12" id="${question.q_no }" style="margin-left: 5%; width: 90%;"><c:if test="${question.q_no == answer.q_no }">${answer.a_answer }</c:if></textarea>
 					</c:if>
 				</c:if> <!-- answerList 반복시 q_no가 같은지 체크 -->
 			</c:forEach> <!-- answerList반복 -->

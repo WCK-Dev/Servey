@@ -70,7 +70,7 @@
 		<button class="btn btn-primary btn-block" onclick="serveyStrat(${servey.s_seq})">설문 시작</button>
 	</c:when>
 	<c:otherwise>
-		<button class="btn btn-primary btn-block" onclick="serveyModify(${servey.s_seq})">설문 수정</button>
+		<button class="btn btn-danger btn-block" onclick="serveyModify(${servey.s_seq})">설문 수정</button>
 	</c:otherwise>
 </c:choose>
 </div>

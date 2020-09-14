@@ -15,6 +15,7 @@
 	.wrapper { margin: 35px auto; width: 80%; border: 2px solid black;}
 	
 	p { font-size: 1.5em}
+	
 </style>
 <script type="text/javascript"src="${pageContext.request.contextPath }/js/form.js"></script>
 </head>
@@ -38,7 +39,7 @@
 	
 	<c:if test="${(i.index)%5 == 0}">
 		<!-- 5문항씩 div로 나누기 -->
-		<div class="container wrapper" id="wrap${i.index }" <c:if test="${!i.first}">style="display:none"</c:if>>
+		<div class="container wrapper" id="wrap${i.index }" <c:if test="${!i.first}">style="display:none;"</c:if>>
 	</c:if>
 	
 		<!-- 각 문항의 div -->
@@ -58,7 +59,7 @@
 				</c:if>
 			</c:forEach>
 			<c:if test="${question.c_type == 0}">
-				<textarea rows="12" cols="130" id="${question.q_no }" style="margin-left: 7%"></textarea>
+				<textarea rows="12" id="${question.q_no }" style="margin-left: 5%; width: 90%;"></textarea>
 			</c:if>
 			
 		</div>

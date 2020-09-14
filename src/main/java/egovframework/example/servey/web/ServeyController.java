@@ -181,14 +181,14 @@ public class ServeyController {
 		}
 	}
 	
-	@RequestMapping(value="insertAnswer.do")
+	@RequestMapping(value="insertAnswer.do", produces="application/json; charset=utf8")
 	@ResponseBody
 	public String insertAnswer(AnswerVO answerVO, HttpServletRequest request) {
 		
-		UserVO user = (UserVO)request.getSession().getAttribute("user");
-		answerVO.setU_id(user.getU_id());
-		
-		return serveyService.insertAnswer(answerVO) + "";
+        UserVO user = (UserVO)request.getSession().getAttribute("user");
+        answerVO.setU_id(user.getU_id());
+
+        return serveyService.insertAnswer(answerVO) + "";
 	}
 	
 	@RequestMapping(value="updateAnswer.do")
